@@ -19,7 +19,6 @@ const Content = () => {
                         </div>
                     </Col>
                     <Col lg={3} md={6}>
-                        {" "}
                         <div className="content-item mb-3">
                             <div className="content-logo">
                                 <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/p-1-2_200x.png?v=1722908548" alt="" />
@@ -31,7 +30,6 @@ const Content = () => {
                         </div>
                     </Col>
                     <Col lg={3} md={6}>
-                        {" "}
                         <div className="content-item mb-3">
                             <div className="content-logo">
                                 <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/p-1-3_200x.png?v=1722908549" alt="" />
@@ -43,7 +41,6 @@ const Content = () => {
                         </div>
                     </Col>
                     <Col lg={3} md={6}>
-                        {" "}
                         <div className="content-item mb-3">
                             <div className="content-logo">
                                 <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/p-1-4_200x.png?v=1722908548" alt="" />

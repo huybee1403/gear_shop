@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.footer {
+    padding: 80px 0;
+    background-color: #17171a;
+    color: white;
+}
+.footer li {
+    list-style: circle;
+}
+.top-footer {
+    width: 80%;
+    margin: auto;
+    border-bottom: 2px solid #4a4a4c;
+}
+.top-footer h4 {
+    cursor: pointer;
+    font-family: "Orbitron";
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all, 0.5s;
+}
+.top-footer h4:hover {
+    color: #f5576c;
+}
+.top-footer h4 span {
+    display: none;
+}
+.top-footer .top-item li {
+    cursor: pointer;
+    transition: all, 0.5s;
+}
+.top-footer .top-item li:hover {
+    color: #cf6cc9;
+}
+.top-footer .top-item .payment .submit {
+    position: relative;
+}
+.top-footer .top-item .payment .submit i {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    position: absolute;
+    background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+    width: 40px;
+    height: 100%;
+    transition: all, 0.5s;
+}
+.top-footer .top-item .payment .submit i:hover {
+    background-image: linear-gradient(to left, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+}
+.top-footer .top-item .payment input {
+    padding: 9px;
+    border: none;
+    outline: none;
+}
+.bottom-footer .social {
+    display: flex;
+    gap: 18px;
+}
+.bottom-footer .social i {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 19px;
+    background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+    transition: all, 0.5s;
+}
+.bottom-footer .social i:hover {
+    background-image: linear-gradient(to left, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+}
+.bottom-footer img {
+    width: 10%;
+}
+@media (max-width: 1621px) {
+    .bottom-footer img {
+        width: 20%;
+    }
+}
+@media (max-width: 767px) {
+    .bottom-footer img {
+        width: 25%;
+    }
+    .top-footer h4 {
+        cursor: pointer;
+    }
+    .top-footer h4 span {
+        display: block;
+        font-size: 25px;
+    }
+}

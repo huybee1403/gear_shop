@@ -1,0 +1,36 @@
+.card-product {
+    height: 580px;
+    margin-left: 8px;
+}
+.slick-track {
+    padding-bottom: 22px;
+}
+.top-rate {
+    margin-top: 100px;
+}
+.title {
+    font-family: "Orbitron", sans-serif;
+    text-align: center;
+    color: white;
+}
+
+.desc {
+    font-family: "Orbitron", sans-serif;
+    text-align: center;
+    color: #e25fa5;
+}
+@media (max-width: 1024px) {
+    .card-product {
+        margin-left: 0px;
+    }
+}
+@media (max-width: 600px) {
+    .card-product {
+        width: 99%;
+    }
+}
+@media (max-width: 480px) {
+    .card-product {
+        width: 100%;
+    }
+}

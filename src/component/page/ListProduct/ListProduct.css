@@ -1,0 +1,35 @@
+.list-item .header {
+    position: fixed;
+    background-color: black;
+}
+.list-item .header .search-popup input{
+    background-color: #17171a;
+}
+.list-item .row {
+    padding-left: 30px;
+    padding-top: 200px;
+    padding-bottom: 100px;
+    width: 100vw;
+}
+.list-item .card-product {
+    width: 95%;
+    background-color: white;
+    border: 2px solid rgba(0, 0, 0, 0.204);
+}
+.list-item .card-product img {
+    width: 340px;
+    height: 340px;
+}
+.list-item .card-product .card-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.list-item .card-product .title {
+    color: black;
+}
+
+.list-item .card-product .card-infor {
+    color: black;
+}
+

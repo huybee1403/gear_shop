@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* CSS */
+.card-product {
+    width: 96%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #17171a;
+    border-radius: 28px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.card-product .card-img {
+    height: 379px;
+    display: flex;
+    align-items: center;
+}
+.card-product .card-img img {
+    object-fit: cover;
+    transition: all 0.5s;
+}
+.card-product .card-infor {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    color: white;
+}
+.card-product .card-infor .title {
+    transition: all 0.5s;
+}
+.card-product .card-infor .title:hover {
+    color: #e25fa5;
+}
+.card-product:hover img {
+    transform: scale(1.15);
+}
+
+.card-btn {
+    opacity: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    top: 20px;
+    right: 20px;
+    transition: all 0.5s;
+}
+.card-product:hover .card-btn {
+    opacity: 1;
+}
+.card-btn .btn-wishlist,
+.btn-addcart,
+.btn-quickview {
+    display: flex;
+    gap: 15px;
+}
+.card-btn .btn-wishlist span,
+.btn-addcart span,
+.btn-quickview span {
+    position: absolute;
+    left: -330%;
+    font-size: smaller;
+    opacity: 0;
+    color: white;
+    background-color: #e25fa5;
+    padding: 8px;
+    border-radius: 7px;
+    transition: all 0.5s;
+}
+.card-btn .btn-wishlist i,
+.btn-addcart i,
+.btn-quickview i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    color: black;
+    transition: all 0.5s;
+}
+.card-btn .btn-wishlist i:hover {
+    background-color: #e25fa5;
+    color: white;
+}
+.card-btn .btn-addcart i:hover {
+    background-color: #e25fa5;
+    color: white;
+}
+.card-btn .btn-quickview i:hover {
+    background-color: #e25fa5;
+    color: white;
+}
+.card-btn .btn-wishlist:hover span {
+    opacity: 1;
+}
+.card-btn .btn-addcart:hover span {
+    opacity: 1;
+}
+.card-btn .btn-quickview:hover span {
+    opacity: 1;
+}
+.quantity input {
+    background-color: white;
+}
+.quantity i {
+    color: black;
+}
+.add-cart {
+    padding: 7px 0;
+    border-radius: 18px;
+    background-color: white;
+    color: black;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.add-cart:hover {
+    border: 1px solid transparent;
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+.buy-now {
+    margin-top: 13px;
+    padding: 7px 0;
+    border-radius: 18px;
+    color: black;
+    background-color: white;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.buy-now:hover {
+    border: 1px solid transparent;
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+.slick-dots li {
+    opacity: 0.5;
+    width: 30px;
+    height: 7px;
+    margin-right: 22px;
+    background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+    border-radius: 12px;
+    transition: all 0.5s;
+}
+.slick-dots .slick-active {
+    width: 60px;
+    opacity: 1;
+}
+.slick-dots li button {
+    width: 30px;
+    height: 7px;
+    opacity: 0;
+}
+.modal-body {
+    background-color: #17171a;
+    color: white;
+}
+.sale {
+    display: none;
+    color: white;
+    background-color: #cf6cc9;
+    padding: 8px 12px;
+    position: absolute;
+    font-size: larger;
+    border-radius: 16px;
+    top: 22px;
+    left: 18px;
+    font-family: "Orbitron";
+}
+.sale.active {
+    display: block;
+}
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.price span {
+    display: none;
+    margin-right: 22px;
+}
+.price .price-value {
+    margin: 0;
+}
+.price span.active {
+    display: block;
+    font-size: 23.48px;
+    color: #cf6cc9;
+    text-decoration: none;
+    font-weight: bold;
+}
+.price-value.active {
+    text-decoration: line-through;
+    font-size: smaller;
+}
+
+/* CSS */
+/* Responsive */
+
+@media (max-width: 992px) {
+    .col-lg-6 {
+        margin-top: 70px;
+    }
+    .btn-quickview i {
+        display: none;
+    }
+    .btn-quickview span {
+        display: none;
+    }
+}
+@media (max-width: 991px) {
+    .add-cart {
+        margin-top: 18px;
+    }
+}
+
+/* Responsive */
