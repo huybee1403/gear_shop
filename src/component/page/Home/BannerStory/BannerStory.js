@@ -1,18 +1,10 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import "./BannerStory.css"
-import AOS from "aos"
 
 const BannerStory = () => {
-    useEffect(() => {
-        AOS.init({
-            duration: 1500,
-            once: false,
-        })
-    }, [])
-
     return (
-        <Container fluid className="banner-story">
+        <Container fluid className="banner-story" data-aos= "fade-up">
             <Row className="banner-list">
                 <Col className="banner-left d-flex flex-column justify-content-center" lg={6} data-aos="fade-down">
                     <p style={{ fontSize: "28px", color: "#d253ff" }} className="ms-5">

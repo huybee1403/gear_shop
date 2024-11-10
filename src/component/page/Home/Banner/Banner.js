@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react"
 import "./Banner.css"
+import { Link } from "react-router-dom"
 const Banner = () => {
     const [id, setId] = useState(1)
     const handleSlider = (index) => {
         setId(index)
     }
+
     useEffect(() => {
         const timer = setTimeout(() => {
             setId(id < 3 ? id + 1 : 1)
         }, 5000)
         return () => clearTimeout(timer)
     }, [id])
+
     return (
         <div className="slider-container">
             <div className={`slider-item ${id === 1 ? "active" : ""}`}>
@@ -23,8 +26,12 @@ const Banner = () => {
                         <br />
                         Equipment for Champions
                     </h1>
-                    <p className="desc">Engineered for Uncompromising Performance and Unparalleled Immersion</p>
-                    <button className="shop">Shop Now</button>
+                    <p className="desc">Gear up with essential equipment designed to elevate your game to championship levels.</p>
+                    <Link to="/product">
+                        <button className="shop">
+                            Shop Now <i className="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className={`slider-item ${id === 2 ? "active" : ""}`}>
@@ -33,12 +40,16 @@ const Banner = () => {
                 </div>
                 <div className="slider-content">
                     <h1 className="caption">
-                        Essential Gaming
+                        Equip Yourself with the 
                         <br />
-                        Equipment for Champions
+                        Best Gear Available
                     </h1>
-                    <p className="desc">Engineered for Uncompromising Performance and Unparalleled Immersion</p>
-                    <button className="shop">Shop Now</button>
+                    <p className="desc">Upgrade your game with our premium gear for top performance.</p>
+                    <Link to="/product">
+                        <button className="shop">
+                            Shop Now <i className="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className={`slider-item ${id === 3 ? "active" : ""}`}>
@@ -47,12 +58,16 @@ const Banner = () => {
                 </div>
                 <div className="slider-content">
                     <h1 className="caption">
-                        Essential Gaming
+                        Redefine Your Gaming
                         <br />
-                        Equipment for Champions
+                        Experience with Gear
                     </h1>
                     <p className="desc">Engineered for Uncompromising Performance and Unparalleled Immersion</p>
-                    <button className="shop">Shop Now</button>
+                    <Link to="/product">
+                        <button className="shop">
+                            Shop Now <i className="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </Link>
                 </div>
             </div>
             <div className="list-button">

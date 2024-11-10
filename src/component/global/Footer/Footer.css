@@ -80,12 +80,12 @@
 }
 @media (max-width: 1621px) {
     .bottom-footer img {
-        width: 20%;
+        width: 15%;
     }
 }
 @media (max-width: 767px) {
     .bottom-footer img {
-        width: 25%;
+        width: 30%;
     }
     .top-footer h4 {
         cursor: pointer;
@@ -93,5 +93,25 @@
     .top-footer h4 span {
         display: block;
         font-size: 25px;
+    }
+    .top-footer .top-item .item ul {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+    .top-footer .top-item .item ul.show {
+        max-height: 200px;
+        opacity: 1;
+    }
+    .top-footer .top-item .payment .payment-bottom {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+    .top-footer .top-item .payment .payment-bottom.show {
+        max-height: 200px;
+        opacity: 1;
     }
 }

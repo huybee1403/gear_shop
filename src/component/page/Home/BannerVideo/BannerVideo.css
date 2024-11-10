@@ -1,0 +1,124 @@
+.banner-video {
+    margin-top: 80px;
+}
+.banner-video .left {
+    color: white;
+    position: relative;
+}
+.banner-video .left .left-background img {
+    border-radius: 28px;
+}
+.banner-video .left .left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 80%;
+    position: absolute;
+    left: 50px;
+    top: 40%;
+    transform: translateY(-40%);
+
+}
+.banner-video .left .left-content .buy-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 19px;
+    cursor: pointer;
+    transition: all, 0.5s;
+}
+.banner-video .left .left-content .buy-btn:hover {
+    color: #cf6cc9;
+}
+.banner-video .left .left-content .buy-btn i {
+    transition: all, 0.5s;
+    font-size: 15px;
+}
+.banner-video .left .left-content .buy-btn:hover i {
+    color: #cf6cc9;
+    transform: rotate(-45deg);
+}
+.banner-video .right {
+    position: relative;
+}
+.banner-video .right .right-background img {
+    border-radius: 28px;
+}
+.banner-video .right .play-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #cf6cc9;
+    background-color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all, 0.5s;
+
+}
+.banner-video .right .play-video i {
+    font-size: larger;
+    transition: all, 0.5s;
+    z-index: 1;
+}
+.banner-video .right .play-video:hover {
+    background-color: #cf6cc9;
+}
+.banner-video .right .play-video:hover i {
+    color: white;
+}
+.banner-video .right .play-video::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    animation: overlay 1s ease-in-out infinite;
+}
+.modal-content {
+    width: 60vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+@keyframes overlay {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+@media(max-width: 1311px){
+    .modal-content{
+        width: 80vw;
+    }
+}
+@media (max-width: 704px) {
+    .banner-video .left .left-content {
+        font-size: smaller;
+    }
+    .banner-video .left .left-content h1 {
+        font-size: 17px;
+    }
+    .banner-video .left .left-content .buy-btn {
+        font-size: 15px;
+    }
+}
+@media(max-width: 675px){
+    .modal-content{
+        display: none;
+    }
+}
+@media (max-width: 454px) {
+    .banner-video .left .left-content {
+        left: 40px;
+    }
+}

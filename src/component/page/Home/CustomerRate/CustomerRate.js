@@ -1,17 +1,9 @@
-import React, { useEffect } from "react"
-import { Col, Container, Row } from "react-bootstrap"
+import React from "react"
+import { Container } from "react-bootstrap"
 import Slider from "react-slick"
 import "./CustomerRate.css"
-import AOS from "aos"
 
 const CustomerRate = () => {
-    useEffect(() => {
-        AOS.init({
-            duration: 1500,
-            once: false,
-        })
-    }, [])
-
     var settings = {
         dots: true,
         infinite: true,
@@ -48,11 +40,11 @@ const CustomerRate = () => {
     }
 
     return (
-        <Container fluid className="customer-rate mt-5" data-aos="zoom-in">
+        <Container fluid className="customer-rate" data-aos="fade-up">
             <div className="top-content mb-3 text-center">
-                <h1 style={{color:"white", fontFamily:"Orbitron"}}>What Customers Say About</h1>
-                <h1 style={{color: "#e25fa5", fontFamily:"Orbitron"}}>Our Products</h1>
-                <p style={{color: "white"}}>This device has set a new standard in the gaming world.</p>
+                <h1 style={{ color: "white", fontFamily: "Orbitron" }}>What Customers Say About</h1>
+                <h1 style={{ color: "#e25fa5", fontFamily: "Orbitron" }}>Our Products</h1>
+                <p style={{ color: "white" }}>This device has set a new standard in the gaming world.</p>
             </div>
             <Slider {...settings}>
                 <div className="customer-item">

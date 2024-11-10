@@ -1,0 +1,154 @@
+.check-out {
+    padding-top: 190px;
+    padding-bottom: 100px;
+}
+.check-out .order-form {
+    padding: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: #17171a;
+}
+.check-out .order-form label {
+    display: block;
+    color: #cf6cc9;
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: 22px;
+}
+.check-out .order-form h3 {
+    font-family: "Orbitron";
+    text-align: center;
+    padding: 8px 0;
+    position: absolute;
+    left: 0;
+    top: -6%;
+    width: 100%;
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+}
+.check-out .order-form form {
+    width: 90%;
+    margin: auto;
+}
+.check-out .order-form form input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+}
+.check-out .order-form form input:focus {
+    border: 3px solid #cf6cc9;
+}
+.check-out .order-form form .err {
+    color: red;
+    margin-top: 5px;
+}
+.check-out .order-form .pay-method {
+    width: 90%;
+    margin: auto;
+    margin-top: 12px;
+}
+.check-out .order-form .pay-method h2 {
+    color: #cf6cc9;
+    font-family: "Orbitron";
+}
+.check-out .order-form .pay-method .cod-method {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.check-out .order-form .pay-method .atm-method {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.check-out .order-form .order-now {
+    display: block;
+    cursor: pointer;
+    transition: all, 0.5s;
+    font-size: 22px;
+    width: 70%;
+    margin: auto;
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+}
+.check-out .order-form .order-now:hover {
+    color: black;
+}
+.product-check h2 {
+    color: #cf6cc9;
+    font-family: "Orbitron";
+    text-align: center;
+}
+.product-check .list-check {
+    height: 400px;
+    overflow-y: auto;
+}
+.product-check .check-item {
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.product-check .check-item .check-id {
+    padding: 8px 22px;
+    font-family: "Orbitron";
+    border-radius: 12px;
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+}
+.product-check .check-item p {
+    margin: 0;
+}
+.product-check .check-item .check-img {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.product-check .check-item .check-img p {
+    width: 169px;
+}
+.product-check .check-item .check-img img {
+    width: 130px;
+    height: 130px;
+}
+.product-check .check-item .check-img {
+    position: relative;
+}
+.product-check .check-item .check-qtn {
+    position: absolute;
+    top: 19%;
+    left: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: white;
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+}
+.product-check .total-check {
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+@media (max-width: 992px) {
+    .check-out {
+        padding-top: 80px;
+        padding-bottom: 100px;
+    }
+}
+@media (max-width: 466px) {
+    .product-check .check-item .check-id {
+        margin-top: 22px;
+    }
+}

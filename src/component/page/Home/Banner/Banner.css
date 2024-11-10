@@ -23,6 +23,7 @@
 }
 .slider-dot.active {
     width: 120px;
+    opacity: 1;
 }
 .slider-dot:hover {
     opacity: 1;
@@ -61,6 +62,9 @@
     font-size: 15px;
 }
 .slider-item .slider-content .shop {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     padding: 7px 52px;
     border: none;
     color: white;
@@ -68,8 +72,14 @@
     background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
     transition: all 0.5s;
 }
+.slider-item .slider-content .shop i{
+    transition: all, 0.5s;
+}
 .slider-item .slider-content .shop:hover {
     background-image: linear-gradient(to left, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+}
+.slider-item .slider-content .shop:hover i{
+    transform: rotate(-45deg);
 }
 .slider-item.active .caption {
     animation: captionAni 3s ease forwards;

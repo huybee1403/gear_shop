@@ -1,0 +1,40 @@
+.contact-us {
+    padding-top: 120px;
+    padding-bottom: 100px;
+}
+.contact-us .list-agency li {
+    margin-bottom: 15px;
+    color: white;
+    cursor: pointer;
+    transition: all, 0.5s;
+}
+.contact-us .list-agency li:hover {
+    color: #cf6cc9;
+}
+.contact-us .list-agency li.active {
+    color: #cf6cc9;
+}
+.contact-us .infor-contact li {
+    margin-bottom: 15px;
+    color: white;
+}
+.social {
+    display: flex;
+    gap: 18px;
+}
+.social i {
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 19px;
+    background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+    transition: all, 0.5s;
+}
+.social i:hover {
+    background-image: linear-gradient(to left, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+}

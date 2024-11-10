@@ -1,10 +1,18 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import "./Content.css"
+import AOS from "aos"
 
 const Content = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 1500,
+            once: false,
+        })
+    }, [])
+
     return (
-        <Container fluid className="mt-5 pt-3">
+        <Container fluid className="mt-5 pt-3" data-aos="fade-up">
             <div className="content-tab">
                 <Row>
                     <Col lg={3} md={6}>

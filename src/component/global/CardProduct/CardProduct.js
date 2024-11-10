@@ -3,13 +3,15 @@ import Slider from "react-slick"
 import "./CardProduct.css"
 import { Col, Modal, Row } from "react-bootstrap"
 import { UseProduct } from "../../../ProductContext/ProductContext"
+import { Link } from "react-router-dom"
 
 const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_check, sale_value }) => {
     const [show, setShow] = useState(false)
+    const [quantity, setQuantity] = useState(1)
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-    const { handleAddProduct } = UseProduct()
+    const { handleAddProduct, addRecentProduct } = UseProduct()
 
     var settings = {
         dots: true,
@@ -19,17 +21,29 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
         slidesToShow: 1,
         slidesToScroll: 1,
     }
+    const handleQuantity = (type) => {
+        if (type === "plus") {
+            setQuantity(quantity + 1)
+        } else if (type === "minus") {
+            setQuantity(quantity - 1)
+            if (quantity <= 1) {
+                setQuantity(1)
+            }
+        }
+    }
 
     return (
         <div className="card-product" id={id} key={id}>
-            <div className="card-img">
-                <img src={img} alt="" />
-            </div>
+            <Link to={`/details/${id}`}>
+                <div className="card-img" onClick={() => addRecentProduct({ id, img, title, rate, price, img_details, details, sale_check, sale_value })}>
+                    <img src={img} alt="" />
+                </div>
+            </Link>
             <div className="card-infor">
                 <h5 className="title">{title}</h5>
                 <div className="rate">
                     {[...Array(rate)].map((index) => (
-                        <i key={index} style={{ color: "cf6cc9", marginRight: "7px" }} className="fa-solid fa-star"></i>
+                        <i key={index} style={{ color: "yellow", marginRight: "7px" }} className="fa-solid fa-star"></i>
                     ))}
                 </div>
                 <div className="price">
@@ -67,10 +81,12 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
                                     </Slider>
                                 </Col>
                                 <Col lg={6} className="d-flex flex-column gap-2">
-                                    <h5 className="title" style={{ textAlign: "start" }}>
+                                    <h3 className="title" style={{ textAlign: "start" }}>
                                         {title}
-                                    </h5>
-                                    <h3 className="price-view">{sale_check ? (price - (price * sale_value) / 100).toFixed(2) : price} $</h3>
+                                    </h3>
+                                    <h3 style={{ color: "#e25fa5" }} className="price-view">
+                                        {sale_check ? (price - (price * sale_value) / 100).toFixed(2) : price} $
+                                    </h3>
                                     <ul className="details p-0">
                                         <li>Details: </li>
                                         {details.map((item) => (
@@ -82,6 +98,7 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
                                             <Col className="position-relative" lg={4}>
                                                 <i
                                                     className="fa-solid fa-plus"
+                                                    onClick={() => handleQuantity("plus")}
                                                     style={{
                                                         position: "absolute",
                                                         right: "18px",
@@ -92,7 +109,7 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
                                                 ></i>
                                                 <input
                                                     type="text"
-                                                    value={0}
+                                                    value={quantity}
                                                     style={{
                                                         width: "100%",
                                                         padding: "7px 0px",
@@ -105,6 +122,7 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
                                                 />
                                                 <i
                                                     className="fa-solid fa-minus"
+                                                    onClick={() => handleQuantity("minus")}
                                                     style={{
                                                         position: "absolute",
                                                         left: "18px",
@@ -115,18 +133,18 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
                                                 ></i>
                                             </Col>
                                             <Col lg={8}>
-                                                <div className="add-cart w-100 text-center">Add To Cart</div>
+                                                <div className="add-cart w-100 text-center" onClick={() => handleAddProduct({ id, img, title, rate, price, img_details, details, sale_check, sale_value })}>Add To Cart</div>
                                             </Col>
                                         </Row>
                                     </div>
-                                    <div className="buy-now text-center">Buy It Now</div>
+                                    <Link to="/check-out"><div className="buy-now text-center">Buy It Now</div></Link>
                                 </Col>
                             </Row>
                         </div>
                     </Modal.Body>
                 </Modal>
             </div>
-            <div className={`sale ${sale_check ? "active" : ""}`}>Sale !</div>
+            <div className={`sale ${sale_check ? "active" : ""}`}>-{sale_value} %</div>
         </div>
     )
 }

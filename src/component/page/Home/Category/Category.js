@@ -1,17 +1,8 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import "./Category.css"
-import AOS from "aos"
-
 
 const Category = () => {
-    useEffect(() => {
-        AOS.init({
-            duration: 1500,
-            once: false,
-        })
-    }, [])
-
     return (
         <div className="category">
             <h1 className="title" data-aos="fade-up">

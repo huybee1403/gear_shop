@@ -189,7 +189,7 @@
 .price span.active {
     display: block;
     font-size: 23.48px;
-    color: #cf6cc9;
+    color: #e25fa5;
     text-decoration: none;
     font-weight: bold;
 }
@@ -197,7 +197,11 @@
     text-decoration: line-through;
     font-size: smaller;
 }
-
+.modal-backdrop {
+    backdrop-filter: blur(10px);
+    --bs-backdrop-bg: none;
+    --bs-backdrop-opacity: 1;
+}
 /* CSS */
 /* Responsive */
 
@@ -217,5 +221,4 @@
         margin-top: 18px;
     }
 }
-
 /* Responsive */
