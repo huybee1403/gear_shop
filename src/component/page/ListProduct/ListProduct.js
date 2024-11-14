@@ -4,8 +4,10 @@ import CardProduct from "../../global/CardProduct/CardProduct"
 import { Col, Container, ProgressBar, Row } from "react-bootstrap"
 import ReactSlider from "react-slider"
 import "./ListProduct.css"
+import { useParams } from "react-router-dom"
 
 const ListProduct = () => {
+    const { slug: cateQuery } = useParams()
     const min = 0
     const max = 200
     const data = useFetch("https://6717cc55b910c6a6e02a08be.mockapi.io/products")
@@ -19,11 +21,15 @@ const ListProduct = () => {
     const [showMore, setShowMore] = useState(6)
     // State
     useEffect(() => {
-        setdataFilter(data)
-    }, [data])
+        if (cateQuery) {
+            setdataFilter(data.filter((item) => item.category === cateQuery))
+        } else {
+            setdataFilter(data)
+        }
+    }, [data, cateQuery])
     // Ref
     const iconFilter = useRef()
-    const filterPopUp = useRef()
+    const filterOverlay = useRef()
     // Ref
 
     //Filte-Data
@@ -62,7 +68,7 @@ const ListProduct = () => {
     useEffect(() => {
         const handleClickOut = (e) => {
             //Filter Menu
-            if (filterPopUp.current && !filterPopUp.current.contains(e.target)) {
+            if (filterOverlay.current && filterOverlay.current.contains(e.target)) {
                 setFilter(false)
             }
             if (iconFilter.current && iconFilter.current.contains(e.target)) {
@@ -92,7 +98,7 @@ const ListProduct = () => {
                 <h1 className="btn-filter" ref={iconFilter}>
                     <i className="fa-solid fa-filter"></i> FILTER BY
                 </h1>
-                <div ref={filterPopUp} className={`list-filter ${filter ? "active" : ""}`}>
+                <div className={`list-filter ${filter ? "active" : ""}`}>
                     <div className="top">
                         <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/Logo_black.png?v=1722670265&width=150" alt="" />
                         <div className="close-btn">
@@ -135,9 +141,6 @@ const ListProduct = () => {
                             </div>
                             <div className="cate-item" onClick={() => addCategory("console")}>
                                 Gaming Console <i className="fa-solid fa-gamepad ms-1"></i>
-                            </div>
-                            <div className="cate-item" onClick={() => addCategory("mouse", "keyboard", "headphone", "console")}>
-                                All Products
                             </div>
                         </div>
                     </div>
@@ -190,6 +193,7 @@ const ListProduct = () => {
                             Clear All <i className="fa-solid fa-trash ms-4"></i>
                         </h3>
                     </div>
+                    <div ref={filterOverlay} className={`filter-overlay ${filter ? "active" : ""}`}></div>
                 </div>
             </div>
             <Row className="d-flex align-items-center justify-content-center">

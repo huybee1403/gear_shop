@@ -1,6 +1,9 @@
 .check-out {
-    padding-top: 190px;
+    padding-top: 110px;
     padding-bottom: 100px;
+}
+.check-out .top {
+    padding-bottom: 80px;
 }
 .check-out .order-form {
     padding: 30px;
@@ -23,7 +26,7 @@
     padding: 8px 0;
     position: absolute;
     left: 0;
-    top: -6%;
+    top: -3%;
     width: 100%;
     background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
 }
@@ -38,17 +41,23 @@
     border: none;
     outline: none;
 }
+.check-out .order-form form select {
+    width: 100%;
+    padding: 10px;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+}
+
 .check-out .order-form form input:focus {
     border: 3px solid #cf6cc9;
 }
-.check-out .order-form form .err {
+.check-out .order-form form .error {
     color: red;
     margin-top: 5px;
 }
 .check-out .order-form .pay-method {
-    width: 90%;
-    margin: auto;
-    margin-top: 12px;
+    margin-top: 29px;
 }
 .check-out .order-form .pay-method h2 {
     color: #cf6cc9;
@@ -78,6 +87,14 @@
     border-radius: 15px;
     border: none;
 }
+.check-out .order-form .atm-pay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 70%;
+    margin: auto;
+}
 .check-out .order-form .order-now:hover {
     color: black;
 }
@@ -87,7 +104,7 @@
     text-align: center;
 }
 .product-check .list-check {
-    height: 400px;
+    height: 270px;
     overflow-y: auto;
 }
 .product-check .check-item {
@@ -145,6 +162,9 @@
     .check-out {
         padding-top: 80px;
         padding-bottom: 100px;
+    }
+    .check-out .top {
+        padding: 0;
     }
 }
 @media (max-width: 466px) {

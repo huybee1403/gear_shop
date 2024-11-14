@@ -71,12 +71,14 @@ const CartDetails = () => {
                 </Col>
             </Row>
             <div className="button">
+                <Link to="/product">
+                    <h4 className="continue-shop" data-aos="zoom-in">
+                        Continue Shopping
+                    </h4>
+                </Link>
                 <Link to="/checkout" data-aos="zoom-in">
                     <h4 className="checkOut-btn">To Checkout</h4>
                 </Link>
-                <h4 className="continue-shop" data-aos="zoom-in">
-                    Continue Shopping
-                </h4>
             </div>
         </Container>
     )

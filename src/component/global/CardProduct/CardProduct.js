@@ -1,17 +1,17 @@
-import React, { useState } from "react"
-import Slider from "react-slick"
-import "./CardProduct.css"
-import { Col, Modal, Row } from "react-bootstrap"
-import { UseProduct } from "../../../ProductContext/ProductContext"
-import { Link } from "react-router-dom"
+import React, { useState } from "react";
+import Slider from "react-slick";
+import "./CardProduct.css";
+import { Col, Modal, Row } from "react-bootstrap";
+import { UseProduct } from "../../../ProductContext/ProductContext";
+import { Link } from "react-router-dom";
 
 const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_check, sale_value }) => {
-    const [show, setShow] = useState(false)
-    const [quantity, setQuantity] = useState(1)
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
+    const [show, setShow] = useState(false);
+    const [quantity, setQuantity] = useState(1);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-    const { handleAddProduct, addRecentProduct } = UseProduct()
+    const { handleAddProduct, addRecentProduct, handleAddWish } = UseProduct();
 
     var settings = {
         dots: true,
@@ -20,17 +20,17 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-    }
+    };
     const handleQuantity = (type) => {
         if (type === "plus") {
-            setQuantity(quantity + 1)
+            setQuantity(quantity + 1);
         } else if (type === "minus") {
-            setQuantity(quantity - 1)
+            setQuantity(quantity - 1);
             if (quantity <= 1) {
-                setQuantity(1)
+                setQuantity(1);
             }
         }
-    }
+    };
 
     return (
         <div className="card-product" id={id} key={id}>
@@ -54,7 +54,7 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
             <div className="card-btn">
                 <div className="btn-wishlist">
                     <span>Add To WishList</span>
-                    <i className="fa-regular fa-star"></i>
+                    <i className="fa-regular fa-star" onClick={() => handleAddWish({ id, img, title, rate, price, img_details, details, sale_check, sale_value })}></i>
                 </div>
                 <div className="btn-addcart">
                     <span>Add To Cart</span>
@@ -133,11 +133,20 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
                                                 ></i>
                                             </Col>
                                             <Col lg={8}>
-                                                <div className="add-cart w-100 text-center" onClick={() => handleAddProduct({ id, img, title, rate, price, img_details, details, sale_check, sale_value })}>Add To Cart</div>
+                                                <div
+                                                    className="add-cart w-100 text-center"
+                                                    onClick={() => handleAddProduct({ id, img, title, rate, price, img_details, details, sale_check, sale_value })}
+                                                >
+                                                    Add To Cart
+                                                </div>
                                             </Col>
                                         </Row>
                                     </div>
-                                    <Link to="/check-out"><div className="buy-now text-center">Buy It Now</div></Link>
+                                    <Link to="/checkout">
+                                        <div className="buy-now text-center" onClick={() => handleAddProduct({ id, img, title, rate, price, img_details, details, sale_check, sale_value })}>
+                                            Buy It Now
+                                        </div>
+                                    </Link>
                                 </Col>
                             </Row>
                         </div>
@@ -146,7 +155,7 @@ const CardProduct = ({ id, img, title, rate, price, img_details, details, sale_c
             </div>
             <div className={`sale ${sale_check ? "active" : ""}`}>-{sale_value} %</div>
         </div>
-    )
-}
+    );
+};
 
-export default CardProduct
+export default CardProduct;

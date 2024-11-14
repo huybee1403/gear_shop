@@ -46,7 +46,7 @@
     height: 340px;
 }
 .details-page .recent-view .slick-dots {
-    bottom: -40px;
+    bottom: -50px;
 }
 @media (max-width: 1200px) {
     .details-page .nav-item {
@@ -54,5 +54,11 @@
     }
     .details-page .nav-item button {
         text-align: start;
+    }
+}
+@media (max-width: 422px) {
+    .details-page .recent-view .card-product img {
+        width: 270px;
+        height: 270px;
     }
 }

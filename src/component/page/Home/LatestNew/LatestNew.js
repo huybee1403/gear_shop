@@ -2,6 +2,7 @@ import React from "react"
 import Slider from "react-slick"
 import newArray from "./new"
 import "./LatestNew.css"
+import { Link } from "react-router-dom"
 
 const LatestNew = () => {
     const news = newArray
@@ -46,20 +47,22 @@ const LatestNew = () => {
             <div className="slider-container">
                 <Slider {...settings}>
                     {news.map((item) => (
-                        <div className="new-item mt-4" key={item.id} id={item.id}>
-                            <div className="new-img">
-                                <img src={item.img} alt="" />
-                            </div>
-                            <div className="new-content">
-                                <h6 className="mb-3">By Vinova Theme</h6>
-                                <h5>{item.title}</h5>
-                                <p>{item.desc}</p>
-                                <div className="btn-read">
-                                    Read More
-                                    <i className="fa-solid fa-arrow-right"></i>
+                        <Link to={`/new/${item.id}`} key={item.id}>
+                            <div className="new-item mt-4" id={item.id}>
+                                <div className="new-img">
+                                    <img src={item.img} alt="" />
+                                </div>
+                                <div className="new-content">
+                                    <h6 className="mb-3">By Vinova Theme</h6>
+                                    <h5>{item.title}</h5>
+                                    <p>{item.desc}</p>
+                                    <div className="btn-read">
+                                        Read More
+                                        <i className="fa-solid fa-arrow-right"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </Slider>
             </div>

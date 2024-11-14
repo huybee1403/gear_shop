@@ -1,0 +1,61 @@
+.list-wish {
+    padding: 100px 0;
+}
+.wish-list {
+    height: 400px;
+    overflow-y: auto;
+}
+.wish-list .wish-item {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+.wish-list .wish-item p {
+    margin: 0;
+}
+.list-wish .wish-item .wish-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.list-wish .wish-item .wish-img p {
+    width: 400px;
+}
+.list-wish .wish-item .wish-img img {
+    width: 130px;
+    height: 130px;
+}
+.list-wish .wish-item .wish-shop {
+    background-color: #cf6cc9;
+    color: white;
+    padding: 8px 22px;
+    border-radius: 22px;
+    transition: all, 0.5s;
+    cursor: pointer;
+}
+.list-wish .wish-item .wish-shop:hover {
+    color: black;
+}
+.list-wish .wish-item .wish-qtn input {
+    text-align: center;
+    background-color: transparent;
+    border: none;
+}
+.list-wish .wish-item .wish-btn {
+    margin-right: 22px;
+}
+@media (max-width: 992px) {
+    .list-wish .wish-item {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 12px;
+    }
+    .list-wish .wish-btn .wish-btn {
+        margin-right: 0;
+    }
+}

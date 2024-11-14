@@ -1,0 +1,111 @@
+.login {
+    padding-top: 110px;
+    padding-bottom: 100px;
+}
+.login .login-form {
+    width: 60%;
+    margin: auto;
+    padding: 70px 50px;
+    background-color: #17171a;
+    display: flex;
+    color: white;
+    flex-direction: column;
+    position: relative;
+}
+.login .top {
+    padding: 0;
+    margin-bottom: 22px;
+}
+.login .login-form label {
+    color: #cf6cc9;
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: 22px;
+}
+.login .login-form .remember {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.login .login-form .forgot p {
+    margin: 0;
+    margin-top: 22px;
+}
+.login .login-form .check {
+    display: flex;
+    align-items: center;
+    margin-top: 22px;
+    gap: 12px;
+}
+.login .login-form .check input {
+    width: 20px;
+    height: 15px;
+}
+.login .login-form .check p {
+    margin: 0;
+}
+.login .login-form h3 {
+    font-family: "Orbitron";
+}
+.login .login-form input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+}
+.login .login-form input:focus {
+    border: 3px solid #cf6cc9;
+}
+.login .login-form button {
+    display: block;
+    cursor: pointer;
+    font-family: "Orbitron";
+    transition: all, 0.5s;
+    font-size: 22px;
+    width: 50%;
+    margin: auto;
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+    padding: 10px;
+    border-radius: 22px;
+    border: none;
+    margin-top: 50px;
+}
+.login .login-form button:hover {
+    color: black;
+}
+.login .login-form .to-register {
+    position: absolute;
+    right: 22px;
+    top: 22px;
+    display: flex;
+    gap: 5px;
+    justify-content: end;
+}
+.login .login-form .to-register .signup {
+    color: #cf6cc9;
+    cursor: pointer;
+    text-decoration: underline;
+}
+@media (max-width: 992px) {
+    .login .login-form {
+        width: 80%;
+    }
+    .login .login-form button {
+        width: 70%;
+    }
+}
+@media (max-width: 767px) {
+    .login .login-form {
+        width: 100%;
+    }
+}
+@media (max-width: 508px) {
+    .login .login-form .to-register {
+        right: 12px;
+        font-size: smaller;
+    }
+}

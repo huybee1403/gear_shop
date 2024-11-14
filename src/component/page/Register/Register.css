@@ -1,0 +1,92 @@
+.register {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.form-regis {
+    width: 55%;
+    margin: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: #17171a;
+    position: relative;
+}
+.form-regis label {
+    display: block;
+    color: #cf6cc9;
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: 22px;
+}
+.form-regis input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+}
+.form-regis input:focus {
+    border: 3px solid #cf6cc9;
+}
+.form-regis button {
+    display: block;
+    cursor: pointer;
+    font-family: "Orbitron";
+    transition: all, 0.5s;
+    font-size: 22px;
+    width: 50%;
+    margin: auto;
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+    padding: 10px;
+    border-radius: 22px;
+    border: none;
+    margin-top: 50px;
+    margin-bottom: 60px;
+}
+.form-regis button:hover {
+    color: black;
+}
+.form-regis h3 {
+    font-family: "Orbitron";
+    color: #cf6cc9;
+}
+.form-regis .error {
+    color: red;
+    margin-top: 5px;
+}
+.form-regis .to-login {
+    position: absolute;
+    right: 22px;
+    bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: end;
+    color: white;
+}
+.form-regis .signin {
+    color: #cf6cc9;
+    cursor: pointer;
+    text-decoration: underline;
+}
+@media (max-width: 992px) {
+    .form-regis {
+        width: 80%;
+    }
+    .form-regis button {
+        width: 70%;
+    }
+}
+@media (max-width: 767px) {
+    .form-regis {
+        width: 100%;
+    }
+}
+@media (max-width: 508px) {
+    .form-regis .to-login {
+        right: 12px;
+        font-size: smaller;
+    }
+}

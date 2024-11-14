@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import useFetch from "../../../Feature/useFetch"
 import { Col, Container, Row, Tab, Table, Tabs } from "react-bootstrap"
 import Slider from "react-slick"
@@ -10,7 +10,19 @@ import CardProduct from "../../global/CardProduct/CardProduct"
 const Details = () => {
     const { slug: id } = useParams()
     const data = useFetch(`https://6717cc55b910c6a6e02a08be.mockapi.io/products/${id}`)
-    const { recentView } = UseProduct()
+    const { recentView, handleAddProduct } = UseProduct()
+    const [quantity, setQuantity] = useState(1)
+
+    const handleQuantity = (type) => {
+        if (type === "plus") {
+            setQuantity(quantity + 1)
+        } else if (type === "minus") {
+            setQuantity(quantity - 1)
+            if (quantity <= 1) {
+                setQuantity(1)
+            }
+        }
+    }
 
     var settings = {
         dots: true,
@@ -22,7 +34,7 @@ const Details = () => {
     }
     var recentSettings = {
         autoplay: true,
-        autoplaySpeed: 6000,
+        autoplaySpeed: 5000,
         dots: true,
         infinite: true,
         arrows: false,
@@ -84,6 +96,7 @@ const Details = () => {
                             <Col className="position-relative" lg={4}>
                                 <i
                                     className="fa-solid fa-plus"
+                                    onClick={() => handleQuantity("plus")}
                                     style={{
                                         position: "absolute",
                                         right: "18px",
@@ -95,7 +108,7 @@ const Details = () => {
                                 ></i>
                                 <input
                                     type="text"
-                                    value={0}
+                                    value={quantity}
                                     style={{
                                         width: "100%",
                                         padding: "7px 0px",
@@ -109,6 +122,7 @@ const Details = () => {
                                 />
                                 <i
                                     className="fa-solid fa-minus"
+                                    onClick={() => handleQuantity("minus")}
                                     style={{
                                         position: "absolute",
                                         left: "18px",
@@ -120,11 +134,15 @@ const Details = () => {
                                 ></i>
                             </Col>
                             <Col lg={8}>
-                                <div className="add-cart w-100 text-center">Add To Cart</div>
+                                <div className="add-cart w-100 text-center" onClick={() => handleAddProduct(data)}>
+                                    Add To Cart
+                                </div>
                             </Col>
                         </Row>
-                        <div className="buy-now text-center mb-4">Buy It Now</div>
-                        <div className="check-out">
+                        <Link to="/checkout">
+                            <div className="buy-now text-center mb-4">Buy It Now</div>
+                        </Link>
+                        <div className="checkOut">
                             <h3 className="mb-4">Guaranteed safe checkout:</h3>
                             <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/payment-detail_700x.png?v=1723170576" alt="" />
                         </div>
@@ -209,7 +227,7 @@ const Details = () => {
                     </Tab>
                 </Tabs>
             </div>
-            <div className="recent-view ">
+            <div className="recent-view">
                 <h3 className="title mb-5" data-aos="fade-down">
                     RECENTLY VIEWED PRODUCTS
                 </h3>

@@ -33,16 +33,21 @@
     background-color: white;
     top: 0;
     left: -100%;
+    pointer-events: none;
     z-index: 1;
     padding-bottom: 30px;
     transition: all, 0.5s;
 }
 .filter-item .list-filter.active {
+    pointer-events: visible;
     opacity: 1;
     left: 0;
 }
-.filter-item .list-filter.active::after {
-    pointer-events: none;
+.filter-item .list-filter .filter-overlay {
+    display: none;
+}
+.filter-item .list-filter .filter-overlay.active {
+    display: block;
     content: "";
     position: fixed;
     width: 80vw;
@@ -249,7 +254,7 @@
     .filter-item .list-filter {
         width: 40vw;
     }
-    .filter-item .list-filter.active::after {
+    .filter-item .list-filter .filter-overlay.active {
         left: 39.6%;
     }
 }
@@ -262,7 +267,7 @@
     .filter-item .list-filter {
         width: 60vw;
     }
-    .filter-item .list-filter.active::after {
+    .filter-item .list-filter .filter-overlay.active {
         left: 59.8%;
     }
 }
@@ -291,7 +296,7 @@
         width: 85%;
         margin-left: 0;
     }
-    .filter-item .list-filter::after {
+    .filter-item .list-filter .filter-overlay.active {
         display: none;
     }
 }

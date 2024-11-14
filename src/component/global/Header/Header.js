@@ -1,75 +1,81 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
-import { Col, Container, Row } from "react-bootstrap"
-import "./Header.css"
-import axios from "axios"
-import debounce from "lodash/debounce"
-import { Link, useNavigate } from "react-router-dom"
-import { UseProduct } from "../../../ProductContext/ProductContext"
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import "./Header.css";
+import axios from "axios";
+import debounce from "lodash/debounce";
+import { Link, useNavigate } from "react-router-dom";
+import { UseProduct } from "../../../ProductContext/ProductContext";
+import { useUser } from "../../../UserContext/UserContext";
 
 const Header = () => {
     // State
-    const [resProdct, setResProdct] = useState(true)
-    const [result, setResult] = useState([])
-    const [query, setQuery] = useState("")
-    const [resMenu, setResMenu] = useState(false)
-    const [search, setSearch] = useState(false)
-    const [cart, setCart] = useState(false)
-    const [isFixed, setIsFixed] = useState(false)
-    const [clicked, setClicked] = useState(false)
-    const navigate = useNavigate()
+    const [resProdct, setResProdct] = useState(true);
+    const [result, setResult] = useState([]);
+    const [query, setQuery] = useState("");
+    const [resMenu, setResMenu] = useState(false);
+    const [search, setSearch] = useState(false);
+    const [user, setUser] = useState(false);
+    const [cart, setCart] = useState(false);
+    const [isFixed, setIsFixed] = useState(false);
+    const [clicked, setClicked] = useState(false);
+    const navigate = useNavigate();
     // State
 
     // Context
-    const { Product, handleQuantity, handleDelete } = UseProduct()
+    const { Product, handleQuantity, handleDelete } = UseProduct();
+    const { handleLogout, email } = useUser();
     // Context
 
     // Ref
-    const refResMenu = useRef()
-    const iconResMenu = useRef()
-    const iconResSearch = useRef()
-    const resSearch = useRef()
-    const cartOverlayRef = useRef()
-    const iconCart = useRef()
+    const refResMenu = useRef();
+    const iconResMenu = useRef();
+    const iconResSearch = useRef();
+    const resSearch = useRef();
+    const cartOverlayRef = useRef();
+    const iconCart = useRef();
+    const iconUser = useRef();
+    const userPopup = useRef();
     // Ref
 
     //Search Real Time
     const fetchResult = async (searchQuery) => {
-        if (!searchQuery) setResult([])
+        if (!searchQuery) setResult([]);
         if (searchQuery) {
             try {
-                const response = await axios.get(`https://6717cc55b910c6a6e02a08be.mockapi.io/products/?title=${searchQuery.trim()}`)
-                setResult(response.data)
+                const response = await axios.get(`https://6717cc55b910c6a6e02a08be.mockapi.io/products/?title=${searchQuery.trim()}`);
+                setResult(response.data);
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
         }
-    }
+    };
 
     const debouncedFetchResults = useCallback(
         debounce((query) => fetchResult(query), 300),
         []
-    )
+    );
 
     useEffect(() => {
-        debouncedFetchResults(query)
+        debouncedFetchResults(query);
         return () => {
-            debouncedFetchResults.cancel()
-        }
-    }, [query, debouncedFetchResults])
+            debouncedFetchResults.cancel();
+        };
+    }, [query, debouncedFetchResults]);
 
     const handelSearch = (e) => {
-        e.preventDefault()
-        navigate(`/search/${query}`)
-    }
+        e.preventDefault();
+        navigate(`/search/${query}`);
+        setSearch(false);
+    };
     //Search Real Time
 
     //HandleClickRemoveHover
     const handleClick = () => {
-        setClicked(true)
+        setClicked(true);
         setTimeout(() => {
-            setClicked(false)
-        }, 1500)
-    }
+            setClicked(false);
+        }, 1500);
+    };
     //HandleClickRemoveHover
 
     // CLickOutSide
@@ -77,53 +83,62 @@ const Header = () => {
         const handleClickOut = (e) => {
             //Responsive Menu
             if (refResMenu.current && !refResMenu.current.contains(e.target)) {
-                setResMenu(false)
+                setResMenu(false);
             }
             if (iconResMenu.current && iconResMenu.current.contains(e.target)) {
-                setResMenu(true)
+                setResMenu(true);
             }
             //Responsive Menu
 
             //Responsive Search PopUp
             if (resSearch.current && !resSearch.current.contains(e.target)) {
-                setSearch(false)
-                setQuery("")
+                setSearch(false);
+                setQuery("");
             }
             if (iconResSearch.current && iconResSearch.current.contains(e.target)) {
-                setSearch(true)
+                setSearch(true);
             }
             //Responsive Search PopUp
 
             //Cart Pop Up
             if (cartOverlayRef.current && cartOverlayRef.current.contains(e.target)) {
-                setCart(false)
+                setCart(false);
             }
             if (iconCart.current && iconCart.current.contains(e.target)) {
-                setCart(true)
+                setCart(true);
             }
             //Cart Pop Up
-        }
-        document.addEventListener("click", handleClickOut)
+
+            //User Pop Up
+            if (userPopup.current && !userPopup.current.contains(e.target)) {
+                setUser(false);
+            }
+            if (iconUser.current && iconUser.current.contains(e.target)) {
+                setUser(true);
+            }
+            //User Pop Up
+        };
+        document.addEventListener("click", handleClickOut);
         return () => {
-            document.addEventListener("click", handleClickOut)
-        }
-    }, [])
+            document.addEventListener("click", handleClickOut);
+        };
+    }, []);
     // CLickOutSide
 
     //Fixed Header
     const handleScroll = () => {
         if (window.scrollY > 800) {
-            setIsFixed(true)
+            setIsFixed(true);
         } else {
-            setIsFixed(false)
+            setIsFixed(false);
         }
-    }
+    };
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll)
+        window.addEventListener("scroll", handleScroll);
         return () => {
-            window.removeEventListener("scroll", handleScroll)
-        }
-    }, [])
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
     //Fixed Header
 
     return (
@@ -144,7 +159,12 @@ const Header = () => {
                             <div className="cate-product">
                                 <Row className="pt-3 pb-3">
                                     <Col lg={6} className="d-flex align-items-center justify-content-center mt-4 mb-5">
-                                        <div className="product-item">
+                                        <div
+                                            className="product-item"
+                                            onClick={() => {
+                                                navigate("/category/mouse");
+                                            }}
+                                        >
                                             <div className="img-product">
                                                 <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/img-5-1_900x.jpg?v=1724640419" alt="" />
                                             </div>
@@ -159,8 +179,14 @@ const Header = () => {
                                             </div>
                                         </div>
                                     </Col>
+
                                     <Col lg={6} className="d-flex align-items-center justify-content-center mt-4 mb-5">
-                                        <div className="product-item">
+                                        <div
+                                            className="product-item"
+                                            onClick={() => {
+                                                navigate("/category/keyboard");
+                                            }}
+                                        >
                                             <div className="img-product">
                                                 <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/img-5-2_900x.jpg?v=1724640419" alt="" />
                                             </div>
@@ -175,8 +201,14 @@ const Header = () => {
                                             </div>
                                         </div>
                                     </Col>
+
                                     <Col lg={6} className="d-flex align-items-center justify-content-center mb-5">
-                                        <div className="product-item">
+                                        <div
+                                            className="product-item"
+                                            onClick={() => {
+                                                navigate("/category/headphone");
+                                            }}
+                                        >
                                             <div className="img-product">
                                                 <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/img-5-3_900x.jpg?v=1724640419" alt="" />
                                             </div>
@@ -191,8 +223,14 @@ const Header = () => {
                                             </div>
                                         </div>
                                     </Col>
+
                                     <Col lg={6} className="d-flex align-items-center justify-content-center mb-5">
-                                        <div className="product-item">
+                                        <div
+                                            className="product-item"
+                                            onClick={() => {
+                                                navigate("/category/console");
+                                            }}
+                                        >
                                             <div className="img-product">
                                                 <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/img-5-4_900x.jpg?v=1724640419" alt="" />
                                             </div>
@@ -214,15 +252,14 @@ const Header = () => {
                     <Link to="/contact" style={{ color: "white" }}>
                         <li>Contact Us</li>
                     </Link>
-                    <li>News</li>
                     <Link to={"/about-us"} style={{ color: "white" }}>
                         <li>About Us</li>
                     </Link>
                 </ul>
                 <div className="btn-icon">
                     <i className="fa-solid fa-magnifying-glass" ref={iconResSearch}></i>
-                    <i className="fa-solid fa-user"></i>
-                    <i className="fa-solid fa-star"></i>
+                    <i ref={iconUser} className="fa-solid fa-user"></i>
+                    <i className="fa-solid fa-star" onClick={() => navigate("/wish")}></i>
                     <i className="fa-solid fa-cart-shopping" ref={iconCart}></i>
                     <i ref={iconResMenu} className="fa-solid fa-bars"></i>
                 </div>
@@ -253,7 +290,12 @@ const Header = () => {
                         <i className="fa-solid fa-xmark"></i>
                     </div>
                     <ul className={`res-menu ${resProdct ? "active" : ""}`}>
-                        <li>
+                        <li
+                            onClick={() => {
+                                navigate("/");
+                                setResMenu(false);
+                            }}
+                        >
                             Home
                             <span>
                                 <i className="fa-solid fa-house"></i>
@@ -265,13 +307,23 @@ const Header = () => {
                                 <i className="fa-solid fa-list"></i>
                             </span>
                         </li>
-                        <li>
+                        <li
+                            onClick={() => {
+                                navigate("/about-us");
+                                setResMenu(false);
+                            }}
+                        >
                             About Us
                             <span>
                                 <i className="fa-solid fa-address-card"></i>
                             </span>
                         </li>
-                        <li>
+                        <li
+                            onClick={() => {
+                                navigate("/contact");
+                                setResMenu(false);
+                            }}
+                        >
                             Contact Us
                             <span>
                                 <i className="fa-solid fa-address-book"></i>
@@ -291,25 +343,45 @@ const Header = () => {
                                 <i className="fa-solid fa-arrow-rotate-left"></i>
                             </span>
                         </li>
-                        <li>
+                        <li
+                            onClick={() => {
+                                navigate("/category/keyboard");
+                                setResMenu(false);
+                            }}
+                        >
                             Gaming Keyboard
                             <span>
                                 <i className="fa-solid fa-keyboard"></i>
                             </span>
                         </li>
-                        <li>
+                        <li
+                            onClick={() => {
+                                navigate("/category/mouse");
+                                setResMenu(false);
+                            }}
+                        >
                             Gaming Mouse
                             <span>
                                 <i className="fa-solid fa-computer-mouse"></i>
                             </span>
                         </li>
-                        <li>
+                        <li
+                            onClick={() => {
+                                navigate("/category/headphone");
+                                setResMenu(false);
+                            }}
+                        >
                             Gaming Headphone
                             <span>
                                 <i className="fa-solid fa-headphones"></i>
                             </span>
                         </li>
-                        <li>
+                        <li
+                            onClick={() => {
+                                navigate("/category/console");
+                                setResMenu(false);
+                            }}
+                        >
                             Gaming Console
                             <span>
                                 <i className="fa-solid fa-gamepad"></i>
@@ -328,16 +400,24 @@ const Header = () => {
                         </div>
                     </div>
                     {Product.length < 1 && (
-                        <div className="cart-empty mt-5">
+                        <div className="cart-empty mt-3">
                             <div className="empty-img">
                                 <img src="https://nov-gearnix.myshopify.com/cdn/shop/t/2/assets/cart-empty.webp" alt="" />
                             </div>
                             <p className="text-center">Your cart is currently empty.</p>
-                            <div className="list-btn mt-5">
-                                <div className="btn">Mouse</div>
-                                <div className="btn">Keyboard</div>
-                                <div className="btn">Headphones</div>
-                                <div className="btn">Controler</div>
+                            <div className="list-btn mt-3">
+                                <Link to="/category/keyboard" onClick={() => setCart(false)} className="btn">
+                                    <div>Keyboard</div>
+                                </Link>
+                                <Link to="/category/mouse" onClick={() => setCart(false)} className="btn">
+                                    <div>Mouse</div>
+                                </Link>
+                                <Link to="/category/headphone" onClick={() => setCart(false)} className="btn">
+                                    <div>Headphones</div>
+                                </Link>
+                                <Link to="/category/console" onClick={() => setCart(false)} className="btn">
+                                    <div>Controler</div>
+                                </Link>
                             </div>
                         </div>
                     )}
@@ -370,8 +450,8 @@ const Header = () => {
                                     <span className="me-4" style={{ color: "#e25fa5" }}>
                                         $
                                         {Product.reduce((total, item) => {
-                                            const itemTotal = item.sale_check ? (item.price - (item.price * item.sale_value) / 100) * item.quantity : item.price * item.quantity
-                                            return total + itemTotal
+                                            const itemTotal = item.sale_check ? (item.price - (item.price * item.sale_value) / 100) * item.quantity : item.price * item.quantity;
+                                            return total + itemTotal;
                                         }, 0).toFixed(2)}
                                     </span>
                                 </h3>
@@ -383,9 +463,95 @@ const Header = () => {
                     )}
                     <div ref={cartOverlayRef} className={`cart-overlay ${cart ? "active" : ""}`}></div>
                 </div>
+                <div ref={userPopup} className={`user-popup ${user ? "active" : ""}`}>
+                    <div className="top">
+                        <img src="https://nov-gearnix.myshopify.com/cdn/shop/files/Logo_black.png?v=1722670265&width=150" alt="" />
+                        <div className="close-btn">
+                            <i className="fa-solid fa-xmark" onClick={() => setUser(false)}></i>
+                        </div>
+                    </div>
+                    {email && (
+                        <div className="account">
+                            <p className="m-0">{email}</p>
+                            <div className="logout" onClick={handleLogout}>
+                                Logout
+                            </div>
+                        </div>
+                    )}
+                    <ul className="list-user">
+                        <h5>Customer Account</h5>
+                        {!email ? (
+                            <li
+                                onClick={() => {
+                                    navigate("/login");
+                                    setUser(false);
+                                }}
+                            >
+                                Login
+                            </li>
+                        ) : (
+                            <li
+                                onClick={() => {
+                                    navigate("/cart-details");
+                                    setUser(false);
+                                }}
+                            >
+                                Your Cart
+                            </li>
+                        )}
+                        <li
+                            onClick={() => {
+                                navigate("/register");
+                                setUser(false);
+                            }}
+                        >
+                            Register
+                        </li>
+                        <li
+                            onClick={() => {
+                                navigate("/wish");
+                                setUser(false);
+                            }}
+                        >
+                            Wishlist
+                        </li>
+                        {email && (
+                            <li
+                                onClick={() => {
+                                    navigate("/history");
+                                    setUser(false);
+                                }}
+                            >
+                                History Order
+                            </li>
+                        )}
+                        <li
+                            onClick={() => {
+                                navigate("/checkout");
+                                setUser(false);
+                            }}
+                        >
+                            Check Out
+                        </li>
+                    </ul>
+                    <ul className="list-care ">
+                        <h5>Customer Care</h5>
+                        <li>FAQs</li>
+                        <li>Terms of Service</li>
+                        <li>Privacy Policy</li>
+                        <li
+                            onClick={() => {
+                                navigate("/contact");
+                                setUser(false);
+                            }}
+                        >
+                            Contact Us
+                        </li>
+                    </ul>
+                </div>
             </Container>
         </>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;
