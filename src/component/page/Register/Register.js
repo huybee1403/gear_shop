@@ -22,8 +22,10 @@ const Register = () => {
                 try {
                     const reponse = await axios.post("https://6717cc55b910c6a6e02a08be.mockapi.io/user", data)
                     toast.success("Sign Up Successfully")
-                    navigate("/login")
-                    window.location.reload()
+                    setTimeout(() => {
+                        navigate("/login")
+                        window.location.reload()
+                    }, 2000)
                 } catch (error) {
                     toast.error(error)
                 }

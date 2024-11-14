@@ -24,6 +24,8 @@ const Header = () => {
     // Context
     const { Product, handleQuantity, handleDelete } = UseProduct();
     const { handleLogout, email } = useUser();
+    console.log(email);
+    
     // Context
 
     // Ref

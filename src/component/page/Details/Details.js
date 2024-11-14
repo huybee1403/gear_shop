@@ -139,7 +139,7 @@ const Details = () => {
                                 </div>
                             </Col>
                         </Row>
-                        <Link to="/checkout">
+                        <Link to="/checkout" onClick={() => handleAddProduct(data)}>
                             <div className="buy-now text-center mb-4">Buy It Now</div>
                         </Link>
                         <div className="checkOut">

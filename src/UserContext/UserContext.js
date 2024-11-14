@@ -7,7 +7,7 @@ import axios from "axios"
 const UserContext = createContext()
 
 const UserProvider = ({ children }) => {
-    const [email, setEmail] = useState(localStorage.getItem("USER_EMAIL") ? localStorage.getItem("USER_EMAIl") : "")
+    const [email, setEmail] = useState(localStorage.getItem("USER_EMAIL") ? localStorage.getItem("USER_EMAIL") : "")
     const userData = useFetch("https://6717cc55b910c6a6e02a08be.mockapi.io/user")
     const navigate = useNavigate()
 

@@ -1,27 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./CheckOut.css";
-import { Col, Container, Row } from "react-bootstrap";
-import { UseProduct } from "../../../ProductContext/ProductContext";
-import { useFormik } from "formik";
-import useFetch from "../../../Feature/useFetch";
-import * as Yup from "yup";
-import emailjs from "emailjs-com";
-import { toast } from "react-toastify";
-import { useUser } from "../../../UserContext/UserContext";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid"; // Import v4 để tạo UUID ngẫu nhiên
+import React, { useEffect, useRef, useState } from "react"
+import "./CheckOut.css"
+import { Col, Container, Row } from "react-bootstrap"
+import { UseProduct } from "../../../ProductContext/ProductContext"
+import { useFormik } from "formik"
+import useFetch from "../../../Feature/useFetch"
+import * as Yup from "yup"
+import emailjs from "emailjs-com"
+import { toast } from "react-toastify"
+import { useUser } from "../../../UserContext/UserContext"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import { v4 as uuidv4 } from "uuid" // Import v4 để tạo UUID ngẫu nhiên
 
 const CheckOut = () => {
-    const form = useRef();
-    const navigate = useNavigate();
-    const { Product } = UseProduct();
-    const { email } = useUser();
-    const [orderId, setOrderId] = useState("");
+    const form = useRef()
+    const navigate = useNavigate()
+    const { Product } = UseProduct()
+    const { email } = useUser()
+    const [orderId, setOrderId] = useState("")
     const createOrderId = () => {
-        const newOrderId = uuidv4(); // Tạo mã đơn hàng UUID mới
-        setOrderId(newOrderId); // Cập nhật mã đơn hàng vào state
-    };
+        const newOrderId = uuidv4() // Tạo mã đơn hàng UUID mới
+        setOrderId(newOrderId) // Cập nhật mã đơn hàng vào state
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -39,24 +39,31 @@ const CheckOut = () => {
                 .required("Your Phone Is Empty"),
             emails: Yup.string().email("Email Is Not Vaild").required("Your Email Is Empty"),
             address: Yup.string().required("Your Addres Is Empty"),
+            city: Yup.string().required("Please Choose Your City"),
+            district: Yup.string().required("Please Choose Your District"),
         }),
         onSubmit: async (values) => {
-            emailjs.sendForm("service_bc6cbtn", "template_0v28vpp", form.current, "qkhQdR9ANS0XLE0D4").then(
+            await emailjs.sendForm("service_bc6cbtn", "template_0v28vpp", form.current, "qkhQdR9ANS0XLE0D4").then(
                 (result) => {
-                    console.log("Email sent successfully:", result);
-                    toast.success("Oder Success");
-                    navigate("/product");
-                    window.location.reload();
+                    console.log("Email sent successfully:", result)
                 },
                 (error) => {
-                    console.log("Failed to send email:", error);
-                    toast.success("Error For Order");
+                    console.log("Failed to send email:", error)
+                    toast.success("Error For Order")
                 }
-            );
-            postData(values);
-            handlePostOrder();
+            )
+            await postData(values)
+            if (email) {
+                await handlePostOrder()
+            }
+
+            alert("Order Successfully")
+            navigate("/")
+
+            localStorage.removeItem("Product")
+            window.location.reload()
         },
-    });
+    })
 
     //History-Order
     const handlePostOrder = async () => {
@@ -66,29 +73,26 @@ const CheckOut = () => {
                     email_Account: email,
                     email_Order: formik.values.emails,
                     history: [...Product],
-                });
-                alert("Data Created Successfully");
+                })
             } catch (error) {
-                console.log(error);
+                console.log(error)
             }
-        } else {
-            localStorage.removeItem("Product");
         }
-    };
+    }
     //History-Order
 
     //GoogleSheet
     const postData = async (data) => {
-        const formData = new FormData();
-        formData.append("entry.657229550", orderId);
-        formData.append("entry.1569401845", data.fullname);
-        formData.append("entry.630370392", data.phone);
-        formData.append("entry.586234339", data.emails);
-        formData.append("entry.5488180", data.address);
+        const formData = new FormData()
+        formData.append("entry.657229550", orderId)
+        formData.append("entry.1569401845", data.fullname)
+        formData.append("entry.630370392", data.phone)
+        formData.append("entry.586234339", data.emails)
+        formData.append("entry.5488180", data.address)
 
-        formData.append("entry.1484802816", JSON.stringify(Product));
-        fetch("https://docs.google.com/forms/u/0/d/e/1FAIpQLSdRZhxdAfh3LcPN3R8wyxNeLdYgMtq-OBgQJF0Ra-ngYmF45w/formResponse", { method: "POST", body: formData, mode: "no-cors" });
-    };
+        formData.append("entry.1484802816", JSON.stringify(Product))
+        fetch("https://docs.google.com/forms/u/0/d/e/1FAIpQLSdRZhxdAfh3LcPN3R8wyxNeLdYgMtq-OBgQJF0Ra-ngYmF45w/formResponse", { method: "POST", body: formData, mode: "no-cors" })
+    }
     //GoogleSheet
 
     // // VNPay
@@ -143,34 +147,34 @@ const CheckOut = () => {
     // //VNPay
 
     //State
-    const [payMent, setPayMent] = useState("cod");
-    const [dataCity, setDataCity] = useState([]);
-    const [selecteCity, setSelecteCity] = useState(1);
-    const [dataDistrict, setDataDistrict] = useState([]);
-    const city = useFetch("https://esgoo.net/api-tinhthanh/1/0.htm");
-    const district = useFetch(`https://esgoo.net/api-tinhthanh/2/${selecteCity}.htm`);
+    const [payMent, setPayMent] = useState("cod")
+    const [dataCity, setDataCity] = useState([])
+    const [selecteCity, setSelecteCity] = useState(1)
+    const [dataDistrict, setDataDistrict] = useState([])
+    const city = useFetch("https://esgoo.net/api-tinhthanh/1/0.htm")
+    const district = useFetch(`https://esgoo.net/api-tinhthanh/2/${selecteCity}.htm`)
 
     useEffect(() => {
         if (city) {
-            setDataCity(city.data);
+            setDataCity(city.data)
         }
         if (district) {
-            setDataDistrict(district.data);
+            setDataDistrict(district.data)
         }
-        setSelecteCity(formik.values.city);
-    }, [city, selecteCity, formik.values.city, district]);
+        setSelecteCity(formik.values.city)
+    }, [city, selecteCity, formik.values.city, district])
     //State
 
     const handlePay = (e) => {
-        setPayMent(e.target.value);
-    };
+        setPayMent(e.target.value)
+    }
 
     const total = Product.reduce((total, item) => {
-        const itemTotal = item.sale_check ? (item.price - (item.price * item.sale_value) / 100) * item.quantity : item.price * item.quantity;
-        return total + itemTotal;
-    }, 0);
+        const itemTotal = item.sale_check ? (item.price - (item.price * item.sale_value) / 100) * item.quantity : item.price * item.quantity
+        return total + itemTotal
+    }, 0)
 
-    const totalDiscount = total > 900.0 ? total - total * 0.2 : total;
+    const totalDiscount = total > 900.0 ? total - total * 0.2 : total
 
     return (
         <Container className="check-out">
@@ -209,6 +213,7 @@ const CheckOut = () => {
                                         </option>
                                     ))}
                             </select>
+                            {formik.touched.city && formik.errors.city ? <div className="error">{formik.errors.city}</div> : null}
 
                             <label htmlFor="district">District</label>
                             <select name="district" id="district" onChange={formik.handleChange}>
@@ -220,6 +225,7 @@ const CheckOut = () => {
                                         </option>
                                     ))}
                             </select>
+                            {formik.touched.district && formik.errors.district ? <div className="error">{formik.errors.district}</div> : null}
 
                             <div className="pay-method">
                                 <h2>Payment Method</h2>
@@ -287,7 +293,7 @@ const CheckOut = () => {
                 </Col>
             </Row>
         </Container>
-    );
-};
+    )
+}
 
-export default CheckOut;
+export default CheckOut
