@@ -19,7 +19,7 @@ const UserProvider = ({ children }) => {
             if (checkUser.password === users.password) {
                 toast.success("Login Success")
                 navigate("/")
-                localStorage.setItem("USER_NAME", users.email)
+                localStorage.setItem("USER_EMAIL", users.email)
                 setEmail(users.email)
             } else {
                 toast.error("Password Is Not Vaild")
