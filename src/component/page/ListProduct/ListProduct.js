@@ -1,67 +1,70 @@
-import React, { useEffect, useRef, useState } from "react"
-import useFetch from "../../../Feature/useFetch"
-import CardProduct from "../../global/CardProduct/CardProduct"
-import { Col, Container, ProgressBar, Row } from "react-bootstrap"
-import ReactSlider from "react-slider"
-import "./ListProduct.css"
-import { useParams } from "react-router-dom"
+import React, { useEffect, useRef, useState } from "react";
+import useFetch from "../../../Feature/useFetch";
+import CardProduct from "../../global/CardProduct/CardProduct";
+import { Col, Container, ProgressBar, Row } from "react-bootstrap";
+import ReactSlider from "react-slider";
+import "./ListProduct.css";
+import { useParams } from "react-router-dom";
 
 const ListProduct = () => {
-    const { slug: cateQuery } = useParams()
-    const min = 0
-    const max = 200
-    const data = useFetch("https://6717cc55b910c6a6e02a08be.mockapi.io/products")
-
+    const { slug: cateQuery } = useParams();
+    const min = 0;
+    const max = 200;
+    const data = useFetch("https://6717cc55b910c6a6e02a08be.mockapi.io/products");
+    console.log(data);
+    
     // State
-    const [values, setValues] = useState([min, max])
-    const [filter, setFilter] = useState(false)
-    const [dataFilter, setdataFilter] = useState([])
-    const [selectedCate, setSelectedCate] = useState([])
-    const [selectedBrand, setSelectedBrand] = useState([])
-    const [showMore, setShowMore] = useState(6)
+    const [values, setValues] = useState([min, max]);
+    const [filter, setFilter] = useState(false);
+    const [dataFilter, setdataFilter] = useState([]);
+    const [selectedCate, setSelectedCate] = useState([]);
+    const [selectedBrand, setSelectedBrand] = useState([]);
+    const [showMore, setShowMore] = useState(6);
     // State
     useEffect(() => {
         if (cateQuery) {
-            setdataFilter(data.filter((item) => item.category === cateQuery))
+            setdataFilter(data.filter((item) => item.category === cateQuery));
         } else {
-            setdataFilter(data)
+            setdataFilter(data);
         }
-    }, [data, cateQuery])
+    }, [data, cateQuery]);
     // Ref
-    const iconFilter = useRef()
-    const filterOverlay = useRef()
+    const iconFilter = useRef();
+    const filterOverlay = useRef();
     // Ref
 
     //Filte-Data
     const filterData = data.filter((item) => {
-        const cateFilter = selectedCate.length > 0 ? selectedCate.includes(item.category) : true
-        const brandFilter = selectedBrand.length > 0 ? selectedBrand.includes(item.brand) : true
-        const priceFilter = item.price >= values[0] && item.price <= values[1]
-        return cateFilter && brandFilter && priceFilter
-    })
+        const cateFilter = selectedCate.length > 0 ? selectedCate.includes(item.category) : true;
+        const brandFilter = selectedBrand.length > 0 ? selectedBrand.includes(item.brand) : true;
+        const priceFilter = item.sale && item.sale.sale_check
+        ? (item.price - (item.price * item.sale.sale_value) / 100 >= values[0] && item.price - (item.price * item.sale.sale_value) / 100 <= values[1])
+        : (item.price >= values[0] && item.price <= values[1]);
+        return cateFilter && brandFilter && priceFilter;
+    });
 
     const addCategory = (category) => {
-        setSelectedCate((prev) => (prev.includes(category) ? prev : [...prev, category]))
-    }
+        setSelectedCate((prev) => (prev.includes(category) ? prev : [...prev, category]));
+    };
     const removeCategory = (category) => {
-        setSelectedCate((prev) => prev.includes(category) && prev.filter((catefilter) => catefilter !== category))
-    }
+        setSelectedCate((prev) => prev.includes(category) && prev.filter((catefilter) => catefilter !== category));
+    };
 
     const addBrand = (brand) => {
-        setSelectedBrand((prev) => (prev.includes(brand) ? prev : [...prev, brand]))
-    }
+        setSelectedBrand((prev) => (prev.includes(brand) ? prev : [...prev, brand]));
+    };
     const removeBrand = (brand) => {
-        setSelectedBrand((prev) => prev.includes(brand) && prev.filter((brandfilter) => brandfilter !== brand))
-    }
+        setSelectedBrand((prev) => prev.includes(brand) && prev.filter((brandfilter) => brandfilter !== brand));
+    };
     useEffect(() => {
-        setdataFilter(filterData)
-    }, [selectedCate, selectedBrand, values])
+        setdataFilter(filterData);
+    }, [selectedCate, selectedBrand, values]);
     //Filte-Data
 
     //Show More Product
     const showMoreProducts = () => {
-        setShowMore((prev) => prev + 3)
-    }
+        setShowMore((prev) => prev + 3);
+    };
     //Show More Product
 
     // CLickOutSide
@@ -69,23 +72,23 @@ const ListProduct = () => {
         const handleClickOut = (e) => {
             //Filter Menu
             if (filterOverlay.current && filterOverlay.current.contains(e.target)) {
-                setFilter(false)
+                setFilter(false);
             }
             if (iconFilter.current && iconFilter.current.contains(e.target)) {
-                setFilter(true)
+                setFilter(true);
             }
             //Filter Menu
-        }
-        document.addEventListener("click", handleClickOut)
-    }, [])
+        };
+        document.addEventListener("click", handleClickOut);
+    }, []);
     // CLickOutSide
 
     //ClearAll
     const clearAllFilters = () => {
-        setSelectedCate([])
-        setSelectedBrand([])
-        setValues([min, max])
-    }
+        setSelectedCate([]);
+        setSelectedBrand([]);
+        setValues([min, max]);
+    };
     //ClearAll
 
     return (
@@ -226,7 +229,7 @@ const ListProduct = () => {
                 </div>
             </div>
         </Container>
-    )
-}
+    );
+};
 
-export default ListProduct
+export default ListProduct;

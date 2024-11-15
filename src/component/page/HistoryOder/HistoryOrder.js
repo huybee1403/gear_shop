@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react"
-import { Col, Container } from "react-bootstrap"
-import "./HistoryOrder.css"
-import { useUser } from "../../../UserContext/UserContext"
-import useFetch from "../../../Feature/useFetch"
+import React, { useEffect, useState } from "react";
+import { Col, Container } from "react-bootstrap";
+import "./HistoryOrder.css";
+import { useUser } from "../../../UserContext/UserContext";
+import useFetch from "../../../Feature/useFetch";
 const HistoryOrder = () => {
-    const { email } = useUser()
-    const [hisData, setHisData] = useState([])
-    const historyOrder = useFetch(`https://6734a5c0a042ab85d11b11ec.mockapi.io/list-oder?email_Account=${email}`)
+    const { email } = useUser();
+    const [hisData, setHisData] = useState([]);
+    const historyOrder = useFetch(`https://6734a5c0a042ab85d11b11ec.mockapi.io/list-oder?email_Account=${email}`);
     useEffect(() => {
-        setHisData(historyOrder)
-    }, [historyOrder])
-    console.log(hisData)
+        setHisData(historyOrder);
+    }, [historyOrder]);
+    console.log(hisData);
 
     return (
         <Container className="history-order">
@@ -44,7 +44,7 @@ const HistoryOrder = () => {
                     ))}
             </Col>
         </Container>
-    )
-}
+    );
+};
 
-export default HistoryOrder
+export default HistoryOrder;
