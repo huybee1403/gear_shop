@@ -95,57 +95,6 @@ const CheckOut = () => {
     }
     //GoogleSheet
 
-    // // VNPay
-    // const VNP_TMN_CODE = "Y1TEA8V5"; // Mã thương nhân (Merchant ID)
-    // const HASH_SECRET = "DEHVC30RXRA1KPFTCPZQ6NJOZX89SITX"; // Khóa bí mật mà VNPAY cung cấp
-    // const VNPAY_URL = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; // URL thanh toán VNPAY Sandbox
-
-    // const createVnPayUrl = (orderInfo, totalDiscount) => {
-    //     const vnp_Params = new URLSearchParams();
-
-    //     const txnRef = Date.now(); // Sử dụng thời gian để tạo số tham chiếu đơn hàng
-    //     vnp_Params.append("vnp_TxnRef", txnRef.toString()); // Mã giao dịch
-    //     vnp_Params.append("vnp_OrderInfo", "Mua san pam"); // Thông tin đơn hàng
-    //     vnp_Params.append("vnp_Amount", (2000000 * 24000).toString()); // VNPay yêu cầu số tiền theo đơn vị đồng (VND)
-    //     vnp_Params.append("vnp_CurrCode", "VND"); // Mã tiền tệ
-    //     vnp_Params.append("vnp_Locale", "vn"); // Ngôn ngữ: vn hoặc en
-    //     vnp_Params.append("vnp_BankCode", ""); // Mã ngân hàng (có thể để trống)
-
-    //     const returnUrl = "http://localhost:3000/return"; // URL trả về sau khi thanh toán xong
-    //     vnp_Params.append("vnp_ReturnUrl", returnUrl);
-
-    //     // Thêm thời gian tạo đơn
-    //     const createDate = new Date().toISOString().replace(/[-T:.Z]/g, ""); // Định dạng lại thời gian
-    //     vnp_Params.append("vnp_CreateDate", createDate); // Tạo mã bảo mật (SecureHash)
-    //     const secureHash = createSecureHash(vnp_Params);
-    //     vnp_Params.append("vnp_SecureHash", secureHash);
-
-    //     console.log(vnp_Params.toString());
-
-    //     // // Tạo URL thanh toán VNPay
-    //         const vnpUrl = `${VNPAY_URL}?${vnp_Params.toString()}`;
-
-    //         // Chuyển hướng người dùng đến VNPay để thanh toán
-    //         window.location.href = vnpUrl;
-    // };
-
-    // // Hàm tạo SecureHash
-    // const createSecureHash = (vnp_Params) => {
-    //     // Sắp xếp các tham số theo thứ tự bảng chữ cái
-    //     const sortedParams = Array.from(vnp_Params.entries())
-    //         .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-    //         .map(([key, value]) => `${key}=${value}`)
-    //         .join("&"); // Tạo chuỗi ký và mã hóa bằng SHA512 (kết hợp với HASH_SECRET)
-    //     const signData = HASH_SECRET + sortedParams;
-    //     const hash = CryptoJS.SHA512(signData).toString(CryptoJS.enc.Hex); // Sử dụng SHA512
-    //     return hash;
-    // };
-    // const handleVNPayClick = () => {
-    //     // Gọi createVnPayUrl khi người dùng chọn thanh toán qua VNPay
-    //     createVnPayUrl("Mua sắm sản phẩm", totalDiscount); // Pass thông tin đơn hàng và tổng tiền thanh toán
-    // };
-    // //VNPay
-
     //State
     const [payMent, setPayMent] = useState("cod")
     const [dataCity, setDataCity] = useState([])
@@ -175,6 +124,62 @@ const CheckOut = () => {
     }, 0)
 
     const totalDiscount = total > 900.0 ? total - total * 0.2 : total
+
+    // // // VNPay
+    // const handlePayment = async (e) => {
+    //     e.preventDefault()
+
+    //     // Cấu hình thông tin thanh toán
+    //     const VNP_TMN_CODE = "Y1TEA8V5" // Mã TMNCode của bạn
+    //     const VNP_HASH_SECRET = "RFRWP6AJUSJOVZRYD0KYZ6P4KUYDOKL7" // Mã HashSecret của bạn
+    //     const VNP_URL = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html" // URL thanh toán VNPay
+    //     const VNP_RETURN_URL = "http://localhost:3000/checkout" // URL trả về sau khi thanh toán
+
+    //     // Tạo mã đơn hàng
+    //     const newOrderId = uuidv4() // Tạo mã đơn hàng UUID mới
+    //     const totalAmount = totalDiscount * 24000 // VNPay yêu cầu tính tiền bằng đồng (VND)
+
+    //     // Thông tin giao dịch
+    //     const orderInfo = {
+    //         vnp_OrderId: newOrderId, // Mã đơn hàng\
+    //         vnp_Amount: totalAmount.toString(), // Số tiền thanh toán (VND)
+    //         vnp_Command: "pay",
+    //         vnp_CreateDate: new Date().toISOString().replace(/T/, " ").replace(/\..+/, ""), // Thời gian tạo giao dịch
+    //         vnp_ExpireDate: new Date(new Date().getTime() + 300000).toISOString().replace(/T/, " ").replace(/\..+/, ""), // Thời gian hết hạn (5 phút)
+    //         vnp_CurrCode: "VND", // Mã tiền tệ
+    //         vnp_IpAddr: "127.0.0.1", // Địa chỉ IP người dùng
+    //         vnp_Locale: "vn", // Ngôn ngữ (vn cho tiếng Việt)
+    //         vnp_OrderInfo: "Thanh toán đơn hàng", // Mô tả giao dịch
+    //         vnp_OrderType: "other", // Loại đơn hàng
+    //         vnp_ReturnUrl: VNP_RETURN_URL, // URL trả về sau khi thanh toán
+    //         vnp_TmnCode: VNP_TMN_CODE, // Mã TMNCode
+    //         vnp_TxnRef: Date.now().toString(), // Mã giao dịch duy nhất (timestamp)
+    //     }
+
+    //     // Tạo chuỗi hashData từ các tham số trên (đảm bảo các tham số này không có dấu `&` trong giá trị)
+    //     const hashData =
+    //         Object.keys(orderInfo)
+    //             .sort()
+    //             .map((key) => `${key}=${orderInfo[key]}`)
+    //             .join("&") + `&vnp_HashSecret=${VNP_HASH_SECRET}` // Thêm vnp_HashSecret vào cuối
+
+    //     // Tạo chữ ký hash (SHA256)
+    //     const vnp_SecureHash = cryptoJs.SHA256(hashData).toString() // Tạo chữ ký SHA256
+
+    //     // Tạo URL thanh toán
+    //     const paymentUrl = `${VNP_URL}?${new URLSearchParams({
+    //         ...orderInfo,
+    //         vnp_SecureHash, // Thêm chữ ký vào tham số
+    //     }).toString()}`
+
+    //     // Log các tham số để kiểm tra
+    //     console.log("Payment URL:", paymentUrl)
+
+    //     // Chuyển hướng người dùng đến VNPay để thanh toán
+    //     window.location.href = paymentUrl
+    //     console.log(paymentUrl)
+    // }
+    // // //VNPay
 
     return (
         <Container className="check-out">
